@@ -26,7 +26,6 @@ const nearbySearch = async (long, lat) => {
       return console.log(err);
     }
 
-    console.log('JSON file has been saved.');
   });
   /*
   fs.appendFile('environmentDetails.txt', searchResults, (err) => {
