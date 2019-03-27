@@ -1,7 +1,7 @@
 const addresses = require('./addresses');
 const storeDetail = require('./storeDetail');
 
-let url = '';
+const url = '';
 
 async function main() {
   // storeDetails.txt and coordinates.txt documents have been filled up with data.
@@ -14,8 +14,5 @@ async function main() {
     });
   }
   */
-  
-
-
 }
 main().catch(err => console.error(err));
