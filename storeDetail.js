@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
-const dukkanOzellik = [];
+// const dukkanOzellik = [];
 
 const storeDetail = async (storeUrl) => {
   const url = `https://www.sahibinden.com${storeUrl}`;
@@ -15,26 +16,22 @@ const storeDetail = async (storeUrl) => {
 
   $('.classifiedInfo').each((i, item) => {
     const $item = $(item);
-    fs.appendFile('storeDetails.txt', '\n', (err) => {
+    fs.appendFile('storeDetails.txt', `${storeUrl},`, (err) => {
       if (err) console.log(err);
-      else console.log('Write operation complete.');
     });
-
-
     $item.find('h3,ul.classifiedInfoList li strong, ul.classifiedInfoList li span').each((j, part) => {
       const $part = $(part);
-      dukkanOzellik.push($part.text().trim());
-      // console.log(dukkanOzellik);
 
       fs.appendFile('storeDetails.txt', `${$part.text().trim()},`, (err) => {
         if (err) console.log(err);
-        else console.log('Write operation complete.');
       });
+    });
+    fs.appendFile('storeDetails.txt', '\n', (err) => {
+      if (err) console.log(err);
     });
   });
 
-
-  fs.appendFile('coordinates.txt', `${$('#gmap').attr('data-lat')  },${  $('#gmap').attr('data-lon')}\n`, (err) => {
+  fs.appendFile('coordinates.txt', `${storeUrl},${$('#gmap').attr('data-lat')},${$('#gmap').attr('data-lon')}\n`, (err) => {
     if (err) console.log(err);
   });
 };
