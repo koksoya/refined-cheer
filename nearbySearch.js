@@ -28,7 +28,7 @@ const nearbySearch = async (URL, long, lat) => {
 
 module.exports = nearbySearch;
 
-nearbySearch('Alsancak_Migros2', 38.4409333,27.1464269);
+nearbySearch('Migros_cankaya2', 39.8938379,32.8771857);
 
 /*
 const lineReader = require('line-reader');
