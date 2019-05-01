@@ -18,7 +18,7 @@ const nearbySearch = async (URL, long, lat) => {
   const searchResultsString = JSON.stringify(searchResults);
   console.log(searchResultsString);
 
-  fs.appendFile('environment.json', `"${URL}":${util.inspect(searchResultsString)},\n`, 'utf8', (err) => {
+  fs.appendFile('labeledData.json', `"${URL}":${util.inspect(searchResultsString)},\n`, 'utf8', (err) => {
     if (err) {
       console.log('An error occured while writing JSON Object to File.');
       return console.log(err);
@@ -28,7 +28,7 @@ const nearbySearch = async (URL, long, lat) => {
 
 module.exports = nearbySearch;
 
-nearbySearch('fdsfsf', 38.3939807, 27.1400093);
+nearbySearch('Alsancak_Migros2', 38.4409333,27.1464269);
 
 /*
 const lineReader = require('line-reader');
