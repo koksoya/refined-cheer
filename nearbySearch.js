@@ -18,7 +18,7 @@ const nearbySearch = async (URL, long, lat) => {
   const searchResultsString = JSON.stringify(searchResults);
   console.log(searchResultsString);
 
-  fs.appendFile('labeledPositive150.json', `"${URL}":${util.inspect(searchResultsString)},\n`, 'utf8', (err) => {
+  fs.appendFile('environment.json', `"${URL}":${util.inspect(searchResultsString)},\n`, 'utf8', (err) => {
     if (err) {
       console.log('An error occured while writing JSON Object to File.');
       return console.log(err);
@@ -33,7 +33,8 @@ module.exports = nearbySearch;
 
 const lineReader = require('line-reader');
 
-lineReader.eachLine('coordinatePositive.txt', (line, last) => {
+// eslint-disable-next-line consistent-return
+lineReader.eachLine('coordinates.txt', (line, last) => {
   const longLat = line.split(',');
   setTimeout(() => nearbySearch(longLat[0], longLat[1], longLat[2])
     .catch(err => console.err(err)), 200);

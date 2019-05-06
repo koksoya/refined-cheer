@@ -16,7 +16,7 @@ const addresses = (url) => new Promise(((resolve, reject) => {
         // handle error
         console.log(err);
         reject(err);
-      });
+    });
   
 }));
 
