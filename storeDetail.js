@@ -3,6 +3,10 @@ const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
+const Cryptr = require('cryptr');
+
+const cryptr = new Cryptr('BehlulKoksoya');
+
 
 const storeDetail = async (storeUrl, storeDetails) => {
   const url = `https://www.sahibinden.com${storeUrl}`;
@@ -19,11 +23,14 @@ const storeDetail = async (storeUrl, storeDetails) => {
       if (err) console.log(err);
     });
     */
+    const encryptedString = cryptr.encrypt(storeUrl);
+    //  const decryptedString = cryptr.decrypt(encryptedString);
+
     const array = [];
-    storeDetails[`${storeUrl}`] = array;
+    storeDetails[encryptedString] = array;
     $item.find('h3,ul.classifiedInfoList li strong, ul.classifiedInfoList li span').each((j, part) => {
       const $part = $(part);
-      storeDetails[`${storeUrl}`].push($part.text().trim());
+      storeDetails[encryptedString].push($part.text().trim());
       /*
       fs.appendFile('storeDetails.txt', `${$part.text().trim()},`, (err) => {
         if (err) console.log(err);
