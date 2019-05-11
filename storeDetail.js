@@ -1,54 +1,58 @@
-/* eslint-disable no-console */
-const fetch = require('node-fetch');
-const cheerio = require('cheerio');
-const fs = require('fs');
-
-const Cryptr = require('cryptr');
-
-const cryptr = new Cryptr('BehlulKoksoya');
+const fetch = require('node-fetch') 
+const cheerio = require('cheerio') 
+const nestedProperty = require("nested-property")
+const nearbySearch = require("./nearbySearch")
 
 
-const storeDetail = async (storeUrl, storeDetails) => {
-  const url = `https://www.sahibinden.com${storeUrl}`;
+const storeDetail = async (storeUrl) => {
+  const url = `https://www.sahibinden.com${storeUrl}` 
 
-  const response = await fetch(url);
-  const body = await response.text();
+  const response = await fetch(url) 
+  const body = await response.text() 
 
-  const $ = cheerio.load(body);
+  const $ = cheerio.load(body) 
 
 
-  $('.classifiedInfo').each((i, item) => {
-    const $item = $(item);
-    /* fs.appendFile('storeDetails.txt', `${storeUrl},`, (err) => {
-      if (err) console.log(err);
-    });
-    */
-    const encryptedString = cryptr.encrypt(storeUrl);
-    //  const decryptedString = cryptr.decrypt(encryptedString);
+/*   $('.classifiedInfo').each((i, item) => {
+    const $item = $(item) 
+     fs.appendFile('storeDetails.txt', `${storeUrl},`, (err) => {
+      if (err) console.log(err) 
+    }) 
+    
 
-    const array = [];
-    storeDetails[encryptedString] = array;
-    $item.find('h3,ul.classifiedInfoList li strong, ul.classifiedInfoList li span').each((j, part) => {
-      const $part = $(part);
-      storeDetails[encryptedString].push($part.text().trim());
-      /*
+   
+    
+     $item.find('h3,ul.classifiedInfoList li strong, ul.classifiedInfoList li span').each((j, part) => {
+      const $part = $(part) 
+      storeDetails[encryptedString].push($part.text().trim()) 
+      
       fs.appendFile('storeDetails.txt', `${$part.text().trim()},`, (err) => {
-        if (err) console.log(err);
-      });
-      */
-    });
-    /*
+        if (err) console.log(err) 
+      }) 
+     
+    }) 
+    
     fs.appendFile('storeDetails.txt', '\n', (err) => {
-      if (err) console.log(err);
-    });
+      if (err) console.log(err) 
+    }) 
 
-*/
-  });
-/*
-  fs.appendFile('coordinates.txt', `${storeUrl},${$('#gmap').attr('data-lat')},${$('#gmap').attr('data-lon')}\n`, (err) => {
-    if (err) console.log(err);
-  });
-  */
-};
 
-module.exports = storeDetail;
+  }) 
+ */
+const latitude = $('#gmap').attr('data-lat')
+const longtitude = $('#gmap').attr('data-lon')
+
+const object = {}
+const environment_obj = await nearbySearch(latitude,longtitude).catch(error => console.log(error)) 
+
+nestedProperty.set(object,"url",storeUrl)
+nestedProperty.set(object,"environment",environment_obj)
+
+console.log("In storeDetail return object...................................."+JSON.stringify(object))
+
+return object
+
+ 
+} 
+
+module.exports = storeDetail 

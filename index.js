@@ -1,39 +1,40 @@
-const axios = require('axios');
-// const EventMitter = require('events');
+const axios = require('axios')
+const nestedProperty = require("nested-property")
+const randomstring = require("randomstring")
 
-const addresses = require('./addresses');
-const storeDetail = require('./storeDetail');
+const addresses = require('./addresses') 
+const storeDetail = require('./storeDetail') 
 
-let url = '';
+let url = '' 
 
-
-/* const emitter = new EventMitter();
-emitter.setMaxListeners(200); */
 
 async function main(element, storeDetails) {
-  for (let index = 0; index <= 250; index += 50) {
-    url = `https://www.sahibinden.com/kiralik-isyeri-dukkan-magaza/izmir-${element}?pagingSize=50&pagingOffset=${index}`;
-    const addressList = await addresses(url);
-    // eslint-disable-next-line no-loop-func
-    addressList.forEach((storeUrl) => {
-      storeDetail(storeUrl, storeDetails[element]).catch(err => console.error(err));
-    });
+  
+  for (let index = 0;  index <= 250;  index += 50) {
+    url = `https://www.sahibinden.com/kiralik-isyeri-dukkan-magaza/izmir-${element}?pagingSize=50&pagingOffset=${index}` 
+    const addressList = await addresses(url) 
+    
+    addressList.forEach(async(storeUrl) => {
+    const obj = await storeDetail(storeUrl).catch(err => console.error(err))
+    console.log("In Index Object  : ..........................................."+JSON.stringify(obj))
+    const randomString = randomstring.generate(7) 
+    nestedProperty.set(storeDetails,randomString,obj)
+    
+    }) 
   }
-  const data = storeDetails[element];
+  const data = storeDetails
+  console.log("DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.............................."+JSON.stringify(data))
   await axios.put(`https://refined-cheer.firebaseio.com/${element}.json`, data)
     .then(response => console.log(response))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err)) 
 
-  /* let str = JSON.stringify(storeDetails);
-  str = str.replace(/'/g, '"');
-  storeDetails = JSON.parse(str);
-  console.log(storeDetails[element]); */
 }
-const districts = ["buca", "bornova"];
+
+const districts = ["buca", "bornova"] 
 const storeDetails = {
-  "buca": {},
-  "bornova": {},
-};
+  "buca":{},
+  "bornova":{}
+} 
 districts.forEach((element) => {
-  main(element, storeDetails).catch(err => console.error(err));
-});
+  main(element, storeDetails[element]).catch(err => console.error(err)) 
+}) 

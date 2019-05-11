@@ -1,44 +1,48 @@
-const fetch = require('node-fetch');
-const fs = require('fs');
-const util = require('util');
+const fetch = require('node-fetch') 
+//  const fs = require('fs') 
+//  const util = require('util') 
 
-let url;
+let url 
 
-const nearbySearch = async (URL, long, lat) => {
-  url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${long},${lat}&radius=150&key=AIzaSyCYKvnHhXeh7hUWeg_P-VLPrT2ho-28DJo`;
-  const res = await fetch(url);
-  const searchResults = {};
-  const { results } = await res.json();
+const nearbySearch = async (long, lat) => {
+  url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${long},${lat}&radius=150&key=AIzaSyCYKvnHhXeh7hUWeg_P-VLPrT2ho-28DJo` 
+  const res = await fetch(url) 
+  const searchResults = {} 
+  const { results } = await res.json() 
   results.forEach((element) => {
     element.types.forEach((val) => {
-      const number = searchResults[val];
-      searchResults[val] = number ? number + 1 : 1;
-    });
-  });
-  const searchResultsString = JSON.stringify(searchResults);
-  console.log(searchResultsString);
+      const number = searchResults[val] 
+      searchResults[val] = number ? number + 1 : 1 
+    }) 
+  }) 
+  console.log("Nearbysearch results : .................................."+JSON.stringify(searchResults))
 
-  fs.appendFile('environment.json', `"${URL}":${util.inspect(searchResultsString)},\n`, 'utf8', (err) => {
+  return searchResults 
+
+// The Code Below can be used in creating training data. May be benefitial.
+
+  /* fs.appendFile('positive150.json', `"${URL}":${util.inspect(searchResultsString)},\n`, 'utf8', (err) => {
     if (err) {
-      console.log('An error occured while writing JSON Object to File.');
-      return console.log(err);
+      console.log('An error occured while writing JSON Object to File.') 
+      return console.log(err) 
     }
-  });
-};
+  })  */
+} 
 
-module.exports = nearbySearch;
-
-// nearbySearch('fdsfsf', 38.3920753,27.1501979);
+module.exports = nearbySearch 
 
 
-const lineReader = require('line-reader');
+// The Code Below can be used in creating training data. May be benefitial.
 
-// eslint-disable-next-line consistent-return
-lineReader.eachLine('coordinates.txt', (line, last) => {
-  const longLat = line.split(',');
+/*
+const lineReader = require('line-reader') 
+
+
+lineReader.eachLine('coordinatePositive.txt', (line, last) => {
+  const longLat = line.split(',') 
   setTimeout(() => nearbySearch(longLat[0], longLat[1], longLat[2])
-    .catch(err => console.err(err)), 200);
+    .catch(err => console.err(err)), 200) 
   if (last) {
-    return false; // stop reading
+    return false  // stop reading
   }
-});
+})  */
