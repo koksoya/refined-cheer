@@ -11,34 +11,26 @@ const storeDetail = async (storeUrl) => {
   const body = await response.text() 
 
   const $ = cheerio.load(body) 
+/*   let rent
+  let size
 
-
-/*   $('.classifiedInfo').each((i, item) => {
+  $('.classifiedInfo').each((i, item) => {
     const $item = $(item) 
-     fs.appendFile('storeDetails.txt', `${storeUrl},`, (err) => {
-      if (err) console.log(err) 
-    }) 
-    
-
-   
     
      $item.find('h3,ul.classifiedInfoList li strong, ul.classifiedInfoList li span').each((j, part) => {
       const $part = $(part) 
-      storeDetails[encryptedString].push($part.text().trim()) 
+      if(j==0){
+        rent = $part.text().trim().split(" ")[0]
+      }
+      if(j==10){
+        size = $part.text().trim()
+      }
       
-      fs.appendFile('storeDetails.txt', `${$part.text().trim()},`, (err) => {
-        if (err) console.log(err) 
-      }) 
-     
     }) 
     
-    fs.appendFile('storeDetails.txt', '\n', (err) => {
-      if (err) console.log(err) 
-    }) 
+    
+  })  */
 
-
-  }) 
- */
 const latitude = $('#gmap').attr('data-lat')
 const longtitude = $('#gmap').attr('data-lon')
 
@@ -47,8 +39,10 @@ const environment_obj = await nearbySearch(latitude,longtitude).catch(error => c
 
 nestedProperty.set(object,"url",storeUrl)
 nestedProperty.set(object,"environment",environment_obj)
+/* nestedProperty.set(object,"m2",size)
+nestedProperty.set(object,"rent",rent) */
 
-console.log("In storeDetail return object...................................."+JSON.stringify(object))
+// console.log("In storeDetail return object...................................."+JSON.stringify(object))
 
 return object
 

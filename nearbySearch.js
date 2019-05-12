@@ -15,7 +15,7 @@ const nearbySearch = async (long, lat) => {
       searchResults[val] = number ? number + 1 : 1 
     }) 
   }) 
-  console.log("Nearbysearch results : .................................."+JSON.stringify(searchResults))
+  // console.log("Nearbysearch results : .................................."+JSON.stringify(searchResults))
 
   return searchResults 
 
