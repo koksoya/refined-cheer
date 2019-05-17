@@ -28,10 +28,11 @@ const index = () => {
       .catch(err => console.log(err))
   }
 
-  const districts = ['buca', 'bornova']
+  const districts = ['buca', 'bornova', 'konak']
   const storeDetails = {
     buca: {},
     bornova: {},
+    konak: {},
   }
 
   districts.forEach((element) => {

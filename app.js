@@ -4,4 +4,6 @@ const index = require('./index');
 
 const app = express();
 
-cron.schedule('33 3 * * *', () => index())
+// cron.schedule('33 3 * * *', () => index())
+
+index()

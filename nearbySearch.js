@@ -4,8 +4,8 @@ const fetch = require('node-fetch')
 
 let url
 
-const nearbySearch = async (long, lat) => {
-  url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${long},${lat}&radius=150&key=AIzaSyCYKvnHhXeh7hUWeg_P-VLPrT2ho-28DJo`
+const nearbySearch = async (lat, lon) => {
+  url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=75&key=AIzaSyAS50lQcxrkJSwzJWrhsInHsAVbsiSVq_s`
   const res = await fetch(url)
   const searchResults = {}
   const { results } = await res.json()
