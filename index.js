@@ -15,8 +15,8 @@ const index = () => {
       const addressList = await addresses(url)
 
       addressList.forEach(async (storeUrl) => {
-        const obj = await storeDetail(storeUrl).catch(err => console.error(err))
-        // console.log("In Index Object  : ..........................................."+JSON.stringify(obj))
+        const obj = await storeDetail(storeUrl).catch(err => console.log(err))
+        
         const randomString = randomstring.generate(7)
         nestedProperty.set(storeDetails, randomString, obj)
       })
@@ -36,7 +36,7 @@ const index = () => {
   }
 
   districts.forEach((element) => {
-    main(element, storeDetails[element]).catch(err => console.error(err))
+    main(element, storeDetails[element]).catch(err => console.log(err))
   })
 }
 
