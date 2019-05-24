@@ -1,11 +1,13 @@
+require('dotenv').config()
 const fetch = require('node-fetch')
+
 //  const fs = require('fs')
 //  const util = require('util')
 
 let url
 
 const nearbySearch = async (lat, lon) => {
-  url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=75&key=API_key`
+  url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=75&key=${process.env.API_KEY}`
   const res = await fetch(url)
   const searchResults = {}
   const { results } = await res.json()

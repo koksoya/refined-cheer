@@ -22,7 +22,7 @@ const index = () => {
       })
     }
     const data = storeDetails
-    console.log(`DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..............................${JSON.stringify(data)}`)
+    console.log(`DATA has ${JSON.stringify(data)}`)
     await axios.put(`https://refined-cheer.firebaseio.com/${element}.json`, data)
       .then(response => console.log(response))
       .catch(err => console.log(err))
